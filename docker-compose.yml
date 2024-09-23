@@ -1,0 +1,27 @@
+services:
+
+  client:
+    build: ./frontend
+    ports:
+      - '5173:5173'
+    networks:
+      - frontend-net
+      - database-net
+    depends_on:
+      - mongodb
+
+  mongodb:
+    image: mongo:5.0
+    volumes:
+      - mongo-data:/data/db
+    ports:
+      - "27017:27017"
+    networks:
+      - database-net
+
+networks:
+  frontend-net:
+  database-net:
+
+volumes:
+  mongo-data:
